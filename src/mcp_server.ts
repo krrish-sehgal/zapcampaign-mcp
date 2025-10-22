@@ -7,6 +7,9 @@ import { registerExecuteCampaignTool } from "./tools/campaign/execute_campaign.j
 import { registerUpdateCampaignTool } from "./tools/campaign/update_campaign.js";
 import { registerDeleteCampaignTool } from "./tools/campaign/delete_campaign.js";
 import { registerPrepareZapTool } from "./tools/payment/prepare_zap.js";
+import { registerScorePostsTool } from "./tools/ai/score_posts.js";
+import { registerAnalyzeContentTool } from "./tools/ai/analyze_content.js";
+import { registerSmartFilterTool } from "./tools/ai/smart_filter.js";
 
 export function createMCPServer(nwcUrl: string): PaidMcpServer {
   const storage = new MemoryStorage();
@@ -24,6 +27,9 @@ export function createMCPServer(nwcUrl: string): PaidMcpServer {
 
   // Register paid tools
   registerFetchPostsTool(server); // PAID - 1 sat per request
+  registerScorePostsTool(server); // PAID - 10 sats per request (AI scoring)
+  registerAnalyzeContentTool(server); // PAID - 5 sats per request (AI analysis)
+  registerSmartFilterTool(server); // PAID - 5 sats per request (AI filtering)
 
   // Register free tools
   registerFilterSpamTool(server); // FREE - Filter spam posts

@@ -9,7 +9,8 @@
     "watch": "tsc --watch",
     "prepare": "npm run build",
     "start": "node build/index.js",
-    "test:zap": "tsx test_zap.ts"
+    "test:zap": "tsx test_zap.ts",
+    "test:ai": "npm run build && node build/tools/ai/test_ai_tools.js"
   },
   "bin": {
     "nostr-posts-mcp": "./build/index.js"
@@ -22,6 +23,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@getalby/paidmcp": "^1.0.3",
+    "@google/generative-ai": "^0.24.1",
     "@modelcontextprotocol/sdk": "^1.0.4",
     "nostr-tools": "^2.10.2",
     "websocket-polyfill": "^0.0.3",
