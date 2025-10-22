@@ -1,0 +1,39 @@
+{
+  "name": "@getalby/nostr-posts-mcp",
+  "version": "1.0.0",
+  "description": "A simple MCP server for fetching Nostr posts by hashtag",
+  "main": "build/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prepare": "npm run build",
+    "start": "node build/index.js",
+    "test:zap": "tsx test_zap.ts"
+  },
+  "bin": {
+    "nostr-posts-mcp": "./build/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "nostr"
+  ],
+  "author": "Alby",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@getalby/paidmcp": "^1.0.3",
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "nostr-tools": "^2.10.2",
+    "websocket-polyfill": "^0.0.3",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "dotenv": "^17.2.3",
+    "tsx": "^4.20.6",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
