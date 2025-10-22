@@ -1,19 +1,5 @@
 #!/usr/bin/env node
 
-// CRITICAL: Suppress all console output before any imports
-// MCP requires pure JSON-RPC on stdout - any other output breaks the protocol
-const originalConsoleLog = console.log;
-const originalConsoleError = console.error;
-const originalConsoleWarn = console.warn;
-const originalConsoleInfo = console.info;
-const originalConsoleDebug = console.debug;
-
-console.log = () => {};
-console.error = (...args: any[]) => process.stderr.write(args.join(" ") + "\n");
-console.warn = () => {};
-console.info = () => {};
-console.debug = () => {};
-
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createMCPServer } from "./mcp_server.js";
 

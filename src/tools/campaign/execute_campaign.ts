@@ -2,7 +2,8 @@ import { PaidMcpServer } from "@getalby/paidmcp";
 import { z } from "zod";
 import { ZapResult, ExecutionResult } from "../../types.js";
 import { campaignStorage } from "../../storage/campaign_storage.js";
-import { prepareZapPayment } from "../payment/send_zap.js";
+import { prepareZapPayment } from "../payment/prepare_zap.js";
+import { getUserId } from "../../utils/user_context.js";
 
 export function registerExecuteCampaignTool(server: PaidMcpServer) {
   server.registerTool(
@@ -11,7 +12,14 @@ export function registerExecuteCampaignTool(server: PaidMcpServer) {
       title: "Execute Campaign",
       description:
         "Prepare zap payment invoices for all selected posts in the simulated campaign. Returns Lightning invoices for the Alby payment MCP to execute.",
-      inputSchema: {},
+      inputSchema: {
+        walletPubkey: z
+          .string()
+          .optional()
+          .describe(
+            "Your wallet node pubkey (from Alby payment MCP). Should match the one used in createCampaign."
+          ),
+      },
       outputSchema: {
         campaign: z.object({
           id: z.string(),
@@ -42,7 +50,8 @@ export function registerExecuteCampaignTool(server: PaidMcpServer) {
     },
     async (params) => {
       try {
-        const campaign = campaignStorage.get();
+        const userId = getUserId(params);
+        const campaign = campaignStorage.get(userId);
 
         if (!campaign) {
           return {
@@ -132,7 +141,7 @@ export function registerExecuteCampaignTool(server: PaidMcpServer) {
         // Update campaign status
         campaign.status = "executed";
         campaign.results = results;
-        campaignStorage.set(campaign);
+        campaignStorage.set(userId, campaign);
 
         // Format results
         const successList = results

@@ -2,6 +2,7 @@ import { PaidMcpServer } from "@getalby/paidmcp";
 import { z } from "zod";
 import { Campaign } from "../../types.js";
 import { campaignStorage } from "../../storage/campaign_storage.js";
+import { getUserId } from "../../utils/user_context.js";
 
 export function registerCreateCampaignTool(server: PaidMcpServer) {
   server.registerTool(
@@ -11,6 +12,12 @@ export function registerCreateCampaignTool(server: PaidMcpServer) {
       description:
         "Create a new zap campaign to reward Nostr posts by hashtag. Stores campaign configuration for simulation and execution. Supports optional filters for targeting specific posts.",
       inputSchema: {
+        walletPubkey: z
+          .string()
+          .optional()
+          .describe(
+            "Your wallet node pubkey (from Alby payment MCP). If not provided, campaign is session-only."
+          ),
         hashtag: z
           .string()
           .min(1)
@@ -84,6 +91,9 @@ export function registerCreateCampaignTool(server: PaidMcpServer) {
       try {
         const { hashtag, satsPerPost, postCount, filters } = params;
 
+        // Get user ID (wallet pubkey or anonymous)
+        const userId = getUserId(params);
+
         // Create campaign
         const campaign: Campaign = {
           id: `campaign-${Date.now()}`,
@@ -95,8 +105,8 @@ export function registerCreateCampaignTool(server: PaidMcpServer) {
           filters: filters || undefined,
         };
 
-        // Store campaign
-        campaignStorage.set(campaign);
+        // Store campaign (per user, in-memory only)
+        campaignStorage.set(userId, campaign);
 
         const totalSats = satsPerPost * postCount;
 

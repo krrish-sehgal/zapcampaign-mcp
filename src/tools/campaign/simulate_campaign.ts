@@ -9,6 +9,7 @@ import {
 } from "../../types.js";
 import { campaignStorage } from "../../storage/campaign_storage.js";
 import { filterPosts } from "../../utils/post_filters.js";
+import { getUserId } from "../../utils/user_context.js";
 
 const DEFAULT_RELAYS = [
   "wss://relay.damus.io",
@@ -78,7 +79,14 @@ export function registerSimulateCampaignTool(server: PaidMcpServer) {
       title: "Simulate Campaign",
       description:
         "Preview which Nostr posts will receive zaps without actually sending payments. Fetches posts and randomly selects winners.",
-      inputSchema: {},
+      inputSchema: {
+        walletPubkey: z
+          .string()
+          .optional()
+          .describe(
+            "Your wallet node pubkey (from Alby payment MCP). Should match the one used in createCampaign."
+          ),
+      },
       outputSchema: {
         campaign: z.object({
           id: z.string(),
@@ -101,7 +109,8 @@ export function registerSimulateCampaignTool(server: PaidMcpServer) {
     },
     async (params) => {
       try {
-        const campaign = campaignStorage.get();
+        const userId = getUserId(params);
+        const campaign = campaignStorage.get(userId);
 
         if (!campaign) {
           return {
@@ -137,7 +146,7 @@ export function registerSimulateCampaignTool(server: PaidMcpServer) {
         // Update campaign with selected posts
         campaign.selectedPosts = selectedPosts;
         campaign.status = "simulated";
-        campaignStorage.set(campaign);
+        campaignStorage.set(userId, campaign);
 
         const totalSats = campaign.satsPerPost * selectedPosts.length;
 
