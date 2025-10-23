@@ -6,12 +6,12 @@ import { SCORE_POST_PROMPT } from "../../utils/ai_prompts.js";
 import { PostScore } from "../../utils/scoring_criteria.js";
 
 export function registerScorePostsTool(server: PaidMcpServer) {
-  server.registerTool(
+  server.registerPaidTool(
     "scorePosts",
     {
       title: "Score Posts with AI",
       description:
-        "Use Gemini AI to score Nostr posts for quality, engagement potential, and relevance. Returns detailed scores (0-100).",
+        "🤖 USE THIS TOOL when user asks to: 'score posts', 'rate posts', 'evaluate post quality', 'rank posts by quality', or 'AI scoring'. Uses Gemini AI to score Nostr posts for quality, engagement potential, and relevance. Returns detailed scores (0-100) with breakdowns.",
       inputSchema: {
         posts: z
           .array(
@@ -53,13 +53,13 @@ export function registerScorePostsTool(server: PaidMcpServer) {
         }),
       },
     },
-    // async (params) => {
-    //   // Charge callback - 10 sats per request
-    //   return {
-    //     satoshi: 10,
-    //     description: `AI scoring for ${params.posts.length} post(s)`,
-    //   };
-    // },
+    async (params) => {
+      // Charge callback - 1 sats per request
+      return {
+        satoshi: 1,
+        description: `AI scoring for ${params.posts.length} post(s)`,
+      };
+    },
     async (params) => {
       try {
         const { posts, hashtag } = params;

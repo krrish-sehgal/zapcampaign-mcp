@@ -5,12 +5,12 @@ import { SMART_FILTER_PROMPT } from "../../utils/ai_prompts.js";
 import { SmartFilterResult } from "../../utils/scoring_criteria.js";
 
 export function registerSmartFilterTool(server: PaidMcpServer) {
-  server.registerTool(
+  server.registerPaidTool(
     "smartFilter",
     {
       title: "Smart Filter Posts with AI",
       description:
-        "Batch categorize Nostr posts by quality using Gemini AI. Automatically sorts posts into high/medium/low quality and spam categories.",
+        "🤖 USE THIS TOOL when user asks to: 'filter posts by quality', 'categorize posts', 'sort by quality', 'find best posts', or 'smart filter'. Batch categorize Nostr posts by quality using Gemini AI. Automatically sorts posts into high/medium/low quality and spam categories.",
       inputSchema: {
         posts: z
           .array(
@@ -43,13 +43,13 @@ export function registerSmartFilterTool(server: PaidMcpServer) {
         }),
       },
     },
-    // async (params) => {
-    //   // Charge callback - 5 sats per request
-    //   return {
-    //     satoshi: 5,
-    //     description: `AI smart filtering for ${params.posts.length} post(s)`,
-    //   };
-    // },
+    async (params) => {
+      // Charge callback - 1 sats per request
+      return {
+        satoshi: 1,
+        description: `AI smart filtering for ${params.posts.length} post(s)`,
+      };
+    },
     async (params) => {
       try {
         const { posts, hashtag } = params;

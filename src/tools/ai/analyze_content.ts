@@ -5,12 +5,12 @@ import { ANALYZE_CONTENT_PROMPT } from "../../utils/ai_prompts.js";
 import { ContentAnalysis } from "../../utils/scoring_criteria.js";
 
 export function registerAnalyzeContentTool(server: PaidMcpServer) {
-  server.registerTool(
+  server.registerPaidTool(
     "analyzeContent",
     {
       title: "Analyze Content with AI",
       description:
-        "Deep content analysis using Gemini AI. Provides sentiment, topics, target audience, engagement predictions, and actionable insights for Nostr posts.",
+        "🤖 USE THIS TOOL when user asks to: 'analyze content', 'analyze posts', 'get sentiment', 'what topics', 'content analysis', or 'understand audience'. Deep content analysis using Gemini AI. Provides sentiment, topics, target audience, engagement predictions, and actionable insights for Nostr posts.",
       inputSchema: {
         posts: z
           .array(
@@ -40,13 +40,13 @@ export function registerAnalyzeContentTool(server: PaidMcpServer) {
         ),
       },
     },
-    // async (params) => {
-    //   // Charge callback - 5 sats per request
-    //   return {
-    //     satoshi: 5,
-    //     description: `AI content analysis for ${params.posts.length} post(s)`,
-    //   };
-    // },
+    async (params) => {
+      // Charge callback - 1 sats per request
+      return {
+        satoshi: 1,
+        description: `AI content analysis for ${params.posts.length} post(s)`,
+      };
+    },
     async (params) => {
       try {
         const { posts, hashtag } = params;

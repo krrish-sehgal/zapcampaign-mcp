@@ -25,19 +25,19 @@ export function createMCPServer(nwcUrl: string): PaidMcpServer {
     }
   );
 
-  // Register paid tools
-  registerFetchPostsTool(server); // PAID - 1 sat per request
-  registerScorePostsTool(server); // PAID - 10 sats per request (AI scoring)
-  registerAnalyzeContentTool(server); // PAID - 5 sats per request (AI analysis)
-  registerSmartFilterTool(server); // PAID - 5 sats per request (AI filtering)
+  // Register paid tools (4 tools - AI + campaign execution)
+  registerScorePostsTool(server); // PAID - 1 sats per request (AI scoring)
+  registerAnalyzeContentTool(server); // PAID - 1 sats per request (AI analysis)
+  registerSmartFilterTool(server); // PAID - 1 sats per request (AI filtering)
+  registerExecuteCampaignTool(server); // PAID - 1 sats per request (triggers real zaps)
 
-  // Register free tools
-  registerFilterSpamTool(server); // FREE - Filter spam posts
+  // Register free tools (7 tools - basic functionality)
+  registerFetchPostsTool(server); // FREE - Fetch posts from Nostr
+  registerFilterSpamTool(server); // FREE - Basic spam filtering
   registerCreateCampaignTool(server); // FREE - Create campaign
   registerUpdateCampaignTool(server); // FREE - Update campaign
   registerDeleteCampaignTool(server); // FREE - Delete campaign
   registerSimulateCampaignTool(server); // FREE - Preview campaign
-  registerExecuteCampaignTool(server); // FREE - Execute campaign
   registerPrepareZapTool(server); // FREE - Prepare zap payment details
 
   return server;

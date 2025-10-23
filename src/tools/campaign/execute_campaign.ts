@@ -6,12 +6,12 @@ import { prepareZapPayment } from "../payment/prepare_zap.js";
 import { getUserId } from "../../utils/user_context.js";
 
 export function registerExecuteCampaignTool(server: PaidMcpServer) {
-  server.registerTool(
+  server.registerPaidTool(
     "executeCampaign",
     {
       title: "Execute Campaign",
       description:
-        "Prepare zap payment invoices for all selected posts in the simulated campaign. Returns Lightning invoices for the Alby payment MCP to execute.",
+        "Prepare zap payment invoices for all selected posts in the simulated campaign. Returns Lightning invoices for the Alby payment MCP to execute. This is a PAID tool because it triggers real NWC payments.",
       inputSchema: {
         walletPubkey: z
           .string()
@@ -47,6 +47,17 @@ export function registerExecuteCampaignTool(server: PaidMcpServer) {
         failedCount: z.number(),
         totalSatsSent: z.number(),
       },
+    },
+    async (params) => {
+      // Charge callback - 1 sats per campaign execution
+      const userId = getUserId(params);
+      const campaign = campaignStorage.get(userId);
+      const postCount = campaign?.selectedPosts?.length || 0;
+
+      return {
+        satoshi: 1,
+        description: `Executing campaign with ${postCount} zap(s)`,
+      };
     },
     async (params) => {
       try {
