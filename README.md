@@ -1,38 +1,118 @@
 # ZapCampaign MCP Server
 
-> **Show how AI agents can autonomously reward Nostr posts using Bitcoin payments through MCP**
+> **AI-Powered Bitcoin Lightning Zap Campaigns for Nostr - Reward Quality Content Automatically**
 
-An MCP (Model Context Protocol) server that enables AI agents to create Bitcoin Lightning zap campaigns on Nostr. Allows autonomous discovery, filtering, and rewarding of Nostr posts with Bitcoin payments via the Lightning Network.
+An advanced MCP (Model Context Protocol) server that enables AI agents to discover, analyze, and reward high-quality Nostr content with Bitcoin Lightning zaps. Features AI-powered content scoring, smart filtering, sentiment analysis, and automated campaign management.
 
-## 🎯 Features
+Perfect for companies running hashtag campaigns or creators who want to support quality content efficiently.
 
-### Free Tools
+---
 
-- **fetchPosts** - Fetch Nostr posts by hashtag with spam filtering
-- **createCampaign** - Create zap campaigns for specific hashtags
-- **simulateCampaign** - Preview campaigns before execution
-- **executeCampaign** - Get instructions for sending zaps
-- **sendZap** - Integration helper for Alby MCP payments
+## ⚡ **Quick Start Requirements**
 
-### Paid Tools (via PaidMCP)
+**To Use ZapCampaign MCP:**
+- 🖥️ **Goose Desktop** (or any MCP client)
+- 🔑 **Google Gemini API Key** (free tier available) - Get paid 1 sat per AI call
+- 💰 **Your Alby/Lightning Wallet + NWC** - Receive payments for AI tools
+- 💰 **User's Alby MCP + Funded Wallet** - Pay for tools + send campaign zaps
 
-- **scorePosts** - AI-powered post ranking by quality and relevance
+**Payment Flow:**
+- Users pay **YOU** 1 sat per AI tool → Your NWC wallet
+- Users pay **Nostr creators** via campaigns → Creator's Lightning addresses
+- Powered by **Alby MCP** for all Bitcoin payments
 
-## 🚀 Quick Start
-
-### Installation
-
-#### Option 1: Install from npm (Coming Soon)
-
-```bash
-npm install -g @getalby/zapcampaign-mcp
+**Wallets Setup:**
+```
+┌─────────────────────────────────────────┐
+│  YOUR SETUP (ZapCampaign MCP Creator)  │
+├─────────────────────────────────────────┤
+│ Google Gemini API Key → AI processing  │
+│ Your Alby Wallet + NWC → RECEIVE sats  │
+└─────────────────────────────────────────┘
+                    ↑
+                    │ 1 sat per AI tool
+                    │
+┌─────────────────────────────────────────┐
+│     USER SETUP (AI Agent User)         │
+├─────────────────────────────────────────┤
+│ Goose Desktop + ZapCampaign MCP        │
+│ Alby MCP + Funded Wallet → SEND sats   │
+│   ├─ Pay you for AI tools (1 sat)      │
+│   └─ Pay creators for campaigns (N sats)│
+└─────────────────────────────────────────┘
 ```
 
-#### Option 2: Install from Source
+👉 **[Jump to Complete Setup Guide](#-goose-desktop-recommended---complete-setup-guide)**
+
+---
+
+## 🌟 **Why ZapCampaign MCP?**
+
+**The Problem:** You want to reward quality Nostr posts with zaps, but manually reviewing hundreds of posts takes hours and you risk wasting sats on spam or low-quality content.
+
+**The Solution:** Let AI agents handle it! ZapCampaign MCP uses Google Gemini AI to:
+- 🎯 Score posts for quality (0-100) with detailed breakdowns
+- 🔍 Analyze content sentiment, topics, and target audiences  
+- 🤖 Smart filter posts into high/medium/low/spam categories
+- ⚡ Execute zap campaigns with Lightning payments
+
+**Use Case:** Perfect for companies running branded hashtags who want to reward early adopters and quality creators without manual review.
+
+---
+
+## 🎯 **Features**
+
+### **FREE Tools (7 tools)**
+
+- ✅ **fetchPosts** - Fetch Nostr posts by hashtag from relays
+- ✅ **filterSpam** - Basic heuristic spam filtering
+- ✅ **createCampaign** - Create zap campaign configurations
+- ✅ **updateCampaign** - Modify campaign before execution
+- ✅ **deleteCampaign** - Remove campaigns from storage
+- ✅ **simulateCampaign** - Preview campaigns before spending sats
+- ✅ **prepareZap** - Prepare Lightning zap payment details
+
+### **PAID Tools (4 tools) - Currently 1 sat each!**
+
+- 💰 **scorePosts** (10 sats normally, **1 sat now**) - AI-powered quality scoring with Gemini
+  - Scores 0-100 with detailed breakdowns
+  - Content quality, engagement, relevance, authenticity, community value
+  - Reasoning for each score
+  - Max 20 posts per request
+
+- 💰 **analyzeContent** (5 sats normally, **1 sat now**) - Deep content analysis
+  - Sentiment detection (positive/negative/neutral/mixed)
+  - Topic extraction
+  - Target audience identification
+  - Engagement predictions
+  - Key insights and warnings
+  - Max 10 posts per request
+
+- 💰 **smartFilter** (5 sats normally, **1 sat now**) - AI batch categorization
+  - Sorts posts into high/medium/low/spam
+  - Better than rule-based filters
+  - Catches subtle spam and low-effort content
+  - Max 50 posts per request
+
+- 💰 **executeCampaign** (10 sats normally, **1 sat now**) - Execute zap campaigns
+  - Prepares Lightning invoices for all selected posts
+  - Validates Lightning addresses
+  - Creates NIP-57 zap requests
+  - Prevents abuse of zap system
+
+**Note:** Special testing pricing at 1 sat per request. Normal prices are 5-10 sats.
+
+---
+
+## 🚀 **Quick Start**
+
+### **Installation**
+
+#### Option 1: Install from Source
 
 ```bash
 # Clone the repository
-git clone https://github.com/getalby/zapcampaign-mcp.git
+git clone https://github.com/krrish-sehgal/zapcampaign-mcp.git
 cd zapcampaign-mcp
 
 # Install dependencies
@@ -42,312 +122,411 @@ npm install
 npm run build
 ```
 
-### Configuration
+### **Configuration**
 
-Copy `.env.example` to `.env` and configure:
+1. Copy `.env.example` to `.env`:
 
 ```bash
-# Required for paid tools only
+cp .env.example .env
+```
+
+2. Configure your environment variables:
+
+```bash
+# Required for paid AI tools (Google Gemini)
+GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
+
+# Required for executing campaigns (Nostr Wallet Connect)
 NWC_CONNECTION_STRING=nostr+walletconnect://...
 
-# Optional: Custom Nostr relays
-NOSTR_RELAYS=wss://relay.damus.io,wss://relay.nostr.band
+# Nostr relays (comma-separated)
+NOSTR_RELAYS=wss://relay.damus.io,wss://relay.nostr.band,wss://nos.lol
 
 # Optional: HTTP mode (default is STDIO)
 # MODE=HTTP
 # PORT=3000
 ```
 
-## 📦 Setup with AI Agents
-
-### Claude Desktop
-
-Add to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "zapcampaign": {
-      "command": "npx",
-      "args": ["-y", "@getalby/zapcampaign-mcp"],
-      "env": {
-        "NWC_CONNECTION_STRING": "nostr+walletconnect://..."
-      }
-    }
-  }
-}
-```
-
-### Goose CLI
-
-```bash
-goose configure
-# Add extension -> Command Line Extension
-# Command: npx -y @getalby/zapcampaign-mcp
-# Add NWC_CONNECTION_STRING as environment variable
-```
-
-### Cline
-
-Paste this into a Cline prompt:
-
-```
-Add the following to my MCP servers list:
-
-"zapcampaign": {
-  "command": "npx",
-  "args": ["-y", "@getalby/zapcampaign-mcp"],
-  "env": {
-    "NWC_CONNECTION_STRING": "nostr+walletconnect://..."
-  },
-  "disabled": false,
-  "autoApprove": []
-}
-```
-
-## 💡 Usage Examples
-
-### Basic Campaign
-
-```
-Create a zap campaign for #bitcoin posts.
-Zap 10 sats to the top 5 posts.
-```
-
-The AI agent will:
-
-1. Fetch posts with the #bitcoin hashtag
-2. Filter out spam
-3. Create a campaign
-4. Show you which posts will be zapped
-5. Provide instructions to execute the zaps
-
-### AI-Powered Scoring (Paid)
-
-```
-Score the top 20 #bitcoinart posts by quality and originality
-```
-
-The AI agent will:
-
-1. Fetch 20 posts with #bitcoinart
-2. Use AI scoring to rank them (requires payment)
-3. Show detailed scores and reasoning
-
-### Complete Workflow
-
-```
-1. Fetch posts for #nostr with limit 30
-2. Score them using AI
-3. Create a campaign to zap the top 10 posts with 100 sats each
-4. Simulate the campaign
-5. Execute the campaign
-```
-
-## 🛠️ Available Tools
-
-### fetchPosts
-
-Fetch Nostr posts by hashtag with spam filtering.
-
-**Parameters:**
-
-- `hashtag` (string, required) - Hashtag to search for
-- `limit` (number, optional) - Max posts to return (default: 20)
-- `filterSpam` (boolean, optional) - Filter spam (default: true)
-
-### createCampaign
-
-Create a new zap campaign.
-
-**Parameters:**
-
-- `hashtag` (string, required) - Hashtag to target
-- `satsPerPost` (number, required) - Sats to zap per post
-- `postCount` (number, required) - Number of posts to zap
-
-**Returns:** Campaign ID for use with simulate/execute
-
-### simulateCampaign
-
-Preview a campaign before execution.
-
-**Parameters:**
-
-- `campaignId` (string, required) - Campaign ID from createCampaign
-
-### executeCampaign
-
-Get instructions to execute zaps for a campaign.
-
-**Parameters:**
-
-- `campaignId` (string, required) - Campaign ID to execute
-
-### sendZap
-
-Helper tool for sending Lightning zaps. Integrates with Alby MCP.
-
-**Parameters:**
-
-- `pubkey` (string, required) - Recipient's public key
-- `amount` (number, required) - Amount in satoshis
-- `note` (string, optional) - Message with the zap
-
-### scorePosts (Paid)
-
-AI-powered post scoring and ranking.
-
-**Parameters:**
-
-- `hashtag` (string, required) - Hashtag to score
-- `limit` (number, optional) - Max posts to score (default: 20)
-
-**Cost:** ~0.5 sats per post scored
-
-## 🏗️ Architecture
-
-```
-AI Agent (Claude / Goose / Cline)
-↓
-ZapCampaign MCP Server
-├── Nostr Tools
-│   ├── fetchPosts (free)
-│   └── filterSpam (internal)
-│
-├── Campaign Tools
-│   ├── createCampaign (free)
-│   ├── simulateCampaign (free)
-│   └── executeCampaign (free)
-│
-├── Payment Tools
-│   └── sendZap (free - requires Alby MCP)
-│
-└── Scoring Tools (PaidMCP)
-    └── scorePosts (paid)
-↓
-External Services
-├── Nostr Relays
-└── Alby MCP (for Lightning payments)
-```
-
-## 🔗 Integration with Alby MCP
-
-ZapCampaign MCP works best with [Alby MCP](https://github.com/getalby/mcp) for executing Lightning payments. Install both:
-
-```json
-{
-  "mcpServers": {
-    "zapcampaign": {
-      "command": "npx",
-      "args": ["-y", "@getalby/zapcampaign-mcp"],
-      "env": {
-        "NWC_CONNECTION_STRING": "nostr+walletconnect://..."
-      }
-    },
-    "alby": {
-      "command": "npx",
-      "args": ["-y", "@getalby/mcp"],
-      "env": {
-        "NWC_CONNECTION_STRING": "nostr+walletconnect://..."
-      }
-    }
-  }
-}
-```
-
-## 🧪 Development
-
-```bash
-# Install dependencies
-npm install
-
-# Build
-npm run build
-
-# Watch mode
-npm run watch
-
-# Run locally
-npm start
-
-# Inspect tools
-npm run inspect
-```
-
-## 📁 Project Structure
-
-```
-zapcampaign-mcp/
-├── src/
-│   ├── index.ts              # Main server entry point
-│   ├── utils/                # Shared utilities
-│   │   ├── constants.ts      # Configuration constants
-│   │   ├── nostr-pool.ts     # Nostr relay connection
-│   │   └── formatting.ts     # Post formatting
-│   └── tools/                # MCP tools
-│       ├── nostr/            # Nostr interaction tools
-│       │   ├── index.ts
-│       │   ├── schemas.ts
-│       │   └── nostr-functions.ts
-│       ├── campaign/         # Campaign management tools
-│       │   ├── index.ts
-│       │   ├── schemas.ts
-│       │   └── campaign-functions.ts
-│       ├── payment/          # Lightning payment tools
-│       │   ├── index.ts
-│       │   └── schemas.ts
-│       └── scoring/          # AI scoring (paid)
-│           ├── index.ts
-│           ├── schemas.ts
-│           └── scoring-functions.ts
-├── package.json
-├── tsconfig.json
-└── README.md
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-Apache-2.0 - see LICENSE file for details
-
-## 🙏 Acknowledgments
-
-- Built with [PaidMCP](https://github.com/getalby/paidmcp) for Bitcoin payments
-- Uses [nostr-tools](https://github.com/nbd-wtf/nostr-tools) for Nostr protocol
-- Integrates with [Alby MCP](https://github.com/getalby/mcp) for Lightning payments
-- Inspired by the [Nostr MCP Server](https://github.com/AustinKelsay/nostr-mcp-server)
-
-## 🐛 Troubleshooting
-
-### No posts found
-
-- Try a more popular hashtag
-- Check your Nostr relay connections
-- Verify relays are responding
-
-### Paid tools not working
-
-- Ensure `NWC_CONNECTION_STRING` is set
-- Verify your NWC wallet has sufficient balance
-- Check that the connection string is valid
-
-### Integration with Alby MCP
-
-- Make sure both MCP servers are configured
-- Verify NWC connection strings are correct
-- Check that your wallet supports NWC
-
-## 📞 Support
-
-For issues and questions:
-
-- GitHub Issues: [Create an issue](https://github.com/getalby/zapcampaign-mcp/issues)
-- Alby Support: [support.getalby.com](https://support.getalby.com)
+### **Get Your API Keys**
+
+1. **Google Gemini API Key** (Free tier available):
+   - Go to: https://ai.google.dev
+   - Create a new API key
+   - Copy to `.env` as `GOOGLE_GENERATIVE_AI_API_KEY`
+
+2. **NWC Connection String** (For zap execution):
+   - Go to: https://getalby.com
+   - Create/login to wallet
+   - Enable Nostr Wallet Connect
+   - Copy connection string to `.env` as `NWC_CONNECTION_STRING`
 
 ---
 
-Made with ⚡ by [Alby](https://getalby.com)
+## 📦 **Setup with AI Agents**
+
+### **🚀 Goose Desktop (Recommended) - Complete Setup Guide**
+
+Follow these steps to get ZapCampaign MCP running with Goose Desktop:
+
+#### **Step 1: Install Goose Desktop**
+
+Download and install Goose from: https://block.github.io/goose/
+
+#### **Step 2: Build ZapCampaign MCP**
+
+```bash
+cd /path/to/zapcampaign-mcp
+npm install
+npm run build
+```
+
+#### **Step 3: Get Your API Keys**
+
+**A. Google Gemini API Key** (For AI tools - scorePosts, analyzeContent, smartFilter)
+
+1. Go to: https://ai.google.dev
+2. Click "Get API Key" → "Create API Key"
+3. Copy the key (starts with `AIza...`)
+4. **This key is for receiving payments** - when users call paid AI tools, the 1 sat goes to your NWC wallet
+
+**B. NWC Connection String** (For receiving payments from AI agents)
+
+1. Go to: https://getalby.com
+2. Create account or login
+3. Go to "Wallet" → "Nostr Wallet Connect"
+4. Click "Create Connection"
+5. Give permissions: **Receive payments** (this is how you get paid for AI tools)
+6. Copy the connection string (starts with `nostr+walletconnect://...`)
+7. **This wallet receives the 1 sat payments** when AI agents use your paid tools
+
+#### **Step 4: Configure Goose Desktop**
+
+Open Goose Desktop and add ZapCampaign MCP:
+
+1. Click **Settings** → **Extensions** → **Add Extension**
+2. Select **Command Line Extension**
+3. Fill in the details:
+
+**Name:** `ZapCampaign MCP`
+
+**Command:** 
+```bash
+node /absolute/path/to/zapcampaign-mcp/build/index.js
+```
+*(Replace with your actual path)*
+
+**Environment Variables:**
+```
+GOOGLE_GENERATIVE_AI_API_KEY=AIza...your_gemini_key
+NWC_CONNECTION_STRING=nostr+walletconnect://...your_nwc_string
+```
+
+4. Click **Save**
+
+#### **Step 5: Install Alby MCP (REQUIRED for Campaign Payments)**
+
+**⚠️ CRITICAL:** Users need Alby MCP to:
+- Pay **you** (1 sat per AI tool call)
+- Pay **Nostr creators** (zap campaigns)
+
+Add Alby MCP to Goose:
+
+1. In Goose Settings → **Extensions** → **Add Extension**
+2. Select **Command Line Extension**
+3. Fill in:
+
+**Name:** `Alby MCP - Bitcoin Payments`
+
+**Command:**
+```bash
+npx -y @getalby/mcp
+```
+
+**Environment Variables:**
+```
+NWC_CONNECTION_STRING=nostr+walletconnect://...user_wallet
+```
+
+**Note:** Users need their OWN Alby wallet for SENDING payments:
+- **Your NWC** (ZapCampaign) = Receives 1 sat from AI tool calls
+- **User's NWC** (Alby MCP) = Sends payments for campaigns + pays you
+
+#### **Step 6: Verify Setup**
+
+Restart Goose Desktop and test:
+
+```
+Hey Goose, list all available MCP tools
+```
+
+You should see:
+- ✅ **ZapCampaign MCP**: 11 tools (fetchPosts, scorePosts, analyzeContent, etc.)
+- ✅ **Alby MCP**: Payment tools (makeInvoice, payInvoice, etc.)
+
+#### **Step 7: Test Payment Flow**
+
+Try this command to verify everything works:
+
+```
+Fetch 5 posts about #Bitcoin, then score them with AI
+```
+
+**Expected flow:**
+1. fetchPosts (FREE) ✅
+2. scorePosts (PAID - 1 sat) 💰
+   - Goose uses Alby MCP to pay YOU 1 sat
+   - Your NWC wallet receives the payment
+   - AI scoring executes with Gemini API
+
+
+#### **Payment Flow Summary**
+
+```
+User asks AI to score posts
+         ↓
+Goose calls scorePosts (ZapCampaign MCP)
+         ↓
+ZapCampaign says: "1 sat please"
+         ↓
+Goose uses Alby MCP to create invoice
+         ↓
+Alby MCP sends 1 sat from user's wallet
+         ↓
+YOUR NWC wallet receives 1 sat ✅
+         ↓
+Gemini API scores the posts
+         ↓
+Results returned to user
+```
+
+#### **Campaign Execution Flow**
+
+```
+User creates campaign to zap 10 posts × 100 sats
+         ↓
+Goose calls executeCampaign (ZapCampaign MCP)
+         ↓
+ZapCampaign charges 1 sat for execution fee
+         ↓
+Goose uses Alby MCP to pay YOU 1 sat
+         ↓
+ZapCampaign prepares 10 Lightning invoices
+         ↓
+Goose uses Alby MCP to pay each Nostr creator
+         ↓
+10 creators receive 100 sats each (1,000 sats total)
+         ↓
+You received 1(or more) sat execution fee ✅
+```
+
+
+## 💡 **Usage Examples**
+
+### **Example 1: Company Hashtag Campaign**
+
+```
+I'm a company running hashtag #BitcoinBuilder. 
+Fetch the latest 20 posts, use AI to score them, 
+filter out anything below 85/100, and create a 
+campaign to zap the top 5 posts with 200 sats each.
+```
+
+The AI agent will:
+1. Fetch 20 posts with #BitcoinBuilder ✅ FREE
+2. Score all posts with AI (1 sat) 💰
+3. Filter to only 85+ scores ✅ FREE
+4. Create campaign for top 5 ✅ FREE
+5. Show preview before execution ✅ FREE
+
+**Total AI cost: 1 sat** | **Zap budget: 1,000 sats**
+
+---
+
+### **Example 2: Competitive Analysis**
+
+```
+Compare #Bitcoin vs #Lightning hashtags.
+Score 10 posts from each and tell me which 
+has higher quality content and better engagement.
+```
+
+The AI agent will:
+1. Fetch posts from both hashtags ✅ FREE
+2. Score 20 posts total (2 sats) 💰
+3. Analyze and compare quality metrics ✅ FREE
+4. Generate competitive intelligence report ✅ FREE
+
+**Total cost: 2 sats for market intelligence!**
+
+---
+
+### **Example 3: Sentiment-Filtered Campaign**
+
+```
+Find #Nostr posts, score them with AI, 
+analyze sentiment, and only zap posts that are 
+positive with a score above 80.
+```
+
+The AI agent will:
+1. Fetch posts ✅ FREE
+2. AI scoring (1 sat) 💰
+3. Sentiment analysis (1 sat) 💰
+4. Filter by score + sentiment ✅ FREE
+5. Create targeted campaign ✅ FREE
+
+**Total AI cost: 2 sats for quality + brand-safe selection**
+
+---
+
+### **Example 4: Smart Batch Filtering**
+
+```
+I have 50 posts about #Bitcoin. 
+Use AI to categorize them into high/medium/low/spam quality.
+Show me only the high-quality ones.
+```
+
+The AI agent will:
+1. Smart filter 50 posts (1 sat) 💰
+2. Categorize all into quality tiers ✅ FREE
+3. Return high-quality post IDs ✅ FREE
+
+**Total cost: 1 sat to process 50 posts!**
+
+---
+
+## 🛠️ **Available Tools**
+
+ZapCampaign MCP provides **11 tools** total: 7 FREE + 4 PAID (AI-powered).
+
+👉 **[View Complete Tools Reference →](./TOOLS_REFERENCE.md)**
+
+### **Quick Overview**
+
+**FREE Tools:**
+- fetchPosts, filterSpam, createCampaign, updateCampaign, deleteCampaign, simulateCampaign, prepareZap
+
+**PAID Tools (1 sat each during testing):**
+- scorePosts (AI quality scoring)
+- analyzeContent (sentiment analysis)
+- smartFilter (batch categorization)
+- executeCampaign (campaign execution)
+
+For detailed API specifications, input/output formats, and usage examples, see [TOOLS_REFERENCE.md](./TOOLS_REFERENCE.md).
+
+---
+
+## 🎨 **Architecture**
+
+```
+┌─────────────────────┐
+│   AI Agent          │
+│ (Goose/Claude/Cline)│
+└──────────┬──────────┘
+           │ MCP Protocol
+           │
+┌──────────▼──────────┐
+│ ZapCampaign MCP     │
+│ ┌─────────────────┐ │
+│ │ FREE Tools      │ │
+│ │ - fetchPosts    │ │
+│ │ - filterSpam    │ │
+│ │ - campaigns     │ │
+│ └─────────────────┘ │
+│ ┌─────────────────┐ │
+│ │ PAID Tools      │ │
+│ │ - scorePosts    │◄─┐
+│ │ - analyzeContent│  │
+│ │ - smartFilter   │  │ Google Gemini
+│ │ - executeCampaign│ │ 1.5 Flash
+│ └─────────────────┘ │ (AI Scoring)
+└──────────┬──────────┘
+           │
+    ┌──────┴──────┐
+    │             │
+┌───▼──┐      ┌──▼────┐
+│Nostr │      │ NWC   │
+│Relays│      │(Alby) │
+└──────┘      └───┬───┘
+                  │
+              ┌───▼────┐
+              │Lightning│
+              │ Network│
+              └────────┘
+```
+
+**Flow:**
+1. AI Agent requests posts via MCP
+2. ZapCampaign fetches from Nostr relays
+3. Optional: AI scoring with Google Gemini (paid)
+4. Campaign creation with in-memory storage
+5. Execution via NWC → Lightning Network zaps
+
+---
+
+## 💰 **Pricing & ROI**
+
+### **Current Testing Pricing (Special Rate)**
+
+| Tool | Testing Price | Normal Price | Max Per Request |
+|------|--------------|--------------|-----------------|
+| scorePosts | **1 sat** | 10 sats | 20 posts |
+| analyzeContent | **1 sat** | 5 sats | 10 posts |
+| smartFilter | **1 sat** | 5 sats | 50 posts |
+| executeCampaign | **1 sat** | 10 sats | unlimited |
+
+### **ROI Example: Company Hashtag Campaign**
+
+**Scenario:** You're a Bitcoin company running hashtag **#BitcoinBuilder**
+
+**Manual Approach:**
+- Time: 3 hours reviewing 50 posts
+- Cost: Your time (3h × $50/hr = **$150**)
+- Risk: Wasting sats on spam/low-quality
+
+**AI-Powered Approach:**
+- Fetch 50 posts: **FREE**
+- Smart filter to high-quality (1 sat): **1 sat**
+- Score top 20 posts (1 sat): **1 sat**
+- Analyze sentiment (1 sat): **1 sat**
+- Execute campaign (1 sat): **1 sat**
+- **Total AI cost: 4 sats (~$0.0016 USD)**
+
+**Result:**
+- Time: 2 minutes
+- Cost: 4 sats + your zap budget
+- Quality: AI-verified high-quality posts only
+- **ROI: 93,750x in time savings alone!**
+
+**Zap Budget Example:**
+- Zap 10 top posts × 200 sats = **2,000 sats**
+- AI cost: **4 sats**
+- Total: **2,004 sats** for brand-safe quality campaign
+
+---
+
+## 🤝 **Contributing**
+
+Contributions welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 **License**
+
+MIT License - see [LICENSE](./LICENSE) file for details.
+
+---
+
+## 👨‍💻 **Created By**
+
+**Krrish Sehgal**  
+Contact: [linktr.ee/krrishsehgal](https://linktr.ee/krrishsehgal)
+
+**⚡ Reward quality content efficiently with AI-powered zap campaigns!**
