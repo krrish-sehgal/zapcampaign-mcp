@@ -8,6 +8,13 @@ Perfect for companies running hashtag campaigns or creators who want to support 
 
 ---
 
+## 🎥 **Learn More**
+
+- **📺 Video Demo**: [Watch on YouTube](https://www.youtube.com/watch?v=ZW4Dq6avH-4)
+- **📝 Blog Post**: [Read on Medium - Automating the Value-for-Value Economy](https://medium.com/@krrishsehgal03/automating-the-value-for-value-economy-46a03d8e5aee)
+
+---
+
 ## ⚡ **Quick Start Requirements**
 
 **To Use ZapCampaign MCP:**
@@ -20,27 +27,6 @@ Perfect for companies running hashtag campaigns or creators who want to support 
 - Users pay **YOU** 1 sat per AI tool → Your NWC wallet
 - Users pay **Nostr creators** via campaigns → Creator's Lightning addresses
 - Powered by **Alby MCP** for all Bitcoin payments
-
-**Wallets Setup:**
-```
-┌─────────────────────────────────────────┐
-│  YOUR SETUP (ZapCampaign MCP Creator)  │
-├─────────────────────────────────────────┤
-│ Google Gemini API Key → AI processing  │
-│ Your Alby Wallet + NWC → RECEIVE sats  │
-└─────────────────────────────────────────┘
-                    ↑
-                    │ 1 sat per AI tool
-                    │
-┌─────────────────────────────────────────┐
-│     USER SETUP (AI Agent User)         │
-├─────────────────────────────────────────┤
-│ Goose Desktop + ZapCampaign MCP        │
-│ Alby MCP + Funded Wallet → SEND sats   │
-│   ├─ Pay you for AI tools (1 sat)      │
-│   └─ Pay creators for campaigns (N sats)│
-└─────────────────────────────────────────┘
-```
 
 👉 **[Jump to Complete Setup Guide](#-goose-desktop-recommended---complete-setup-guide)**
 
@@ -104,7 +90,52 @@ Perfect for companies running hashtag campaigns or creators who want to support 
 
 ---
 
-## 🚀 **Quick Start**
+## � **Why PaidMCP adds value.**
+
+PaidMCP enables **micropayment monetization** for AI tools, creating a sustainable ecosystem:
+
+**For Tool Creators (You):**
+- ✅ Earn 1-10 sats per AI request
+- ✅ No subscription hassles - pay-per-use model
+- ✅ Built-in payment infrastructure via Lightning Network
+- ✅ Focus on building tools, not payment systems
+
+**For Users:**
+- ✅ Only pay for what you use (1 sat = ~$0.0004 USD)
+- ✅ No monthly subscriptions or commitment
+- ✅ Access premium AI features on-demand
+- ✅ Transparent pricing - know the cost upfront
+
+**The Economics:**
+- AI cost: 4 sats (~$0.0016) for complete campaign analysis
+- Traditional approach: 3 hours of manual work
+- **ROI: 93,750x in time savings**
+
+PaidMCP makes AI tools economically viable at micro-scale while keeping costs negligible for users.
+
+---
+
+#### **Payment Flow Summary**
+
+```
+User asks AI to score posts
+         ↓
+Goose calls scorePosts (ZapCampaign MCP)
+         ↓
+ZapCampaign says: "1 sat please" (Alby's PaidMCP at play here)
+         ↓
+Goose uses Alby PAID MCP to create invoice for the tools
+         ↓
+Alby Payments MCP sends 1 sat from user's wallet
+         ↓
+User's Lightning wallet receives 1 sat ✅
+         ↓
+Gemini API scores the posts
+         ↓
+Results returned to user
+```
+
+## �� **Quick Start**
 
 ### **Installation**
 
@@ -278,27 +309,6 @@ Fetch 5 posts about #Bitcoin, then score them with AI
    - Your NWC wallet receives the payment
    - AI scoring executes with Gemini API
 
-
-#### **Payment Flow Summary**
-
-```
-User asks AI to score posts
-         ↓
-Goose calls scorePosts (ZapCampaign MCP)
-         ↓
-ZapCampaign says: "1 sat please"
-         ↓
-Goose uses Alby MCP to create invoice
-         ↓
-Alby MCP sends 1 sat from user's wallet
-         ↓
-YOUR NWC wallet receives 1 sat ✅
-         ↓
-Gemini API scores the posts
-         ↓
-Results returned to user
-```
-
 #### **Campaign Execution Flow**
 
 ```
@@ -319,192 +329,6 @@ Goose uses Alby MCP to pay each Nostr creator
 You received 1(or more) sat execution fee ✅
 ```
 
-
-## 💡 **Usage Examples**
-
-### **Example 1: Company Hashtag Campaign**
-
-```
-I'm a company running hashtag #BitcoinBuilder. 
-Fetch the latest 20 posts, use AI to score them, 
-filter out anything below 85/100, and create a 
-campaign to zap the top 5 posts with 200 sats each.
-```
-
-The AI agent will:
-1. Fetch 20 posts with #BitcoinBuilder ✅ FREE
-2. Score all posts with AI (1 sat) 💰
-3. Filter to only 85+ scores ✅ FREE
-4. Create campaign for top 5 ✅ FREE
-5. Show preview before execution ✅ FREE
-
-**Total AI cost: 1 sat** | **Zap budget: 1,000 sats**
-
----
-
-### **Example 2: Competitive Analysis**
-
-```
-Compare #Bitcoin vs #Lightning hashtags.
-Score 10 posts from each and tell me which 
-has higher quality content and better engagement.
-```
-
-The AI agent will:
-1. Fetch posts from both hashtags ✅ FREE
-2. Score 20 posts total (2 sats) 💰
-3. Analyze and compare quality metrics ✅ FREE
-4. Generate competitive intelligence report ✅ FREE
-
-**Total cost: 2 sats for market intelligence!**
-
----
-
-### **Example 3: Sentiment-Filtered Campaign**
-
-```
-Find #Nostr posts, score them with AI, 
-analyze sentiment, and only zap posts that are 
-positive with a score above 80.
-```
-
-The AI agent will:
-1. Fetch posts ✅ FREE
-2. AI scoring (1 sat) 💰
-3. Sentiment analysis (1 sat) 💰
-4. Filter by score + sentiment ✅ FREE
-5. Create targeted campaign ✅ FREE
-
-**Total AI cost: 2 sats for quality + brand-safe selection**
-
----
-
-### **Example 4: Smart Batch Filtering**
-
-```
-I have 50 posts about #Bitcoin. 
-Use AI to categorize them into high/medium/low/spam quality.
-Show me only the high-quality ones.
-```
-
-The AI agent will:
-1. Smart filter 50 posts (1 sat) 💰
-2. Categorize all into quality tiers ✅ FREE
-3. Return high-quality post IDs ✅ FREE
-
-**Total cost: 1 sat to process 50 posts!**
-
----
-
-## 🛠️ **Available Tools**
-
-ZapCampaign MCP provides **11 tools** total: 7 FREE + 4 PAID (AI-powered).
-
-👉 **[View Complete Tools Reference →](./TOOLS_REFERENCE.md)**
-
-### **Quick Overview**
-
-**FREE Tools:**
-- fetchPosts, filterSpam, createCampaign, updateCampaign, deleteCampaign, simulateCampaign, prepareZap
-
-**PAID Tools (1 sat each during testing):**
-- scorePosts (AI quality scoring)
-- analyzeContent (sentiment analysis)
-- smartFilter (batch categorization)
-- executeCampaign (campaign execution)
-
-For detailed API specifications, input/output formats, and usage examples, see [TOOLS_REFERENCE.md](./TOOLS_REFERENCE.md).
-
----
-
-## 🎨 **Architecture**
-
-```
-┌─────────────────────┐
-│   AI Agent          │
-│ (Goose/Claude/Cline)│
-└──────────┬──────────┘
-           │ MCP Protocol
-           │
-┌──────────▼──────────┐
-│ ZapCampaign MCP     │
-│ ┌─────────────────┐ │
-│ │ FREE Tools      │ │
-│ │ - fetchPosts    │ │
-│ │ - filterSpam    │ │
-│ │ - campaigns     │ │
-│ └─────────────────┘ │
-│ ┌─────────────────┐ │
-│ │ PAID Tools      │ │
-│ │ - scorePosts    │◄─┐
-│ │ - analyzeContent│  │
-│ │ - smartFilter   │  │ Google Gemini
-│ │ - executeCampaign│ │ 1.5 Flash
-│ └─────────────────┘ │ (AI Scoring)
-└──────────┬──────────┘
-           │
-    ┌──────┴──────┐
-    │             │
-┌───▼──┐      ┌──▼────┐
-│Nostr │      │ NWC   │
-│Relays│      │(Alby) │
-└──────┘      └───┬───┘
-                  │
-              ┌───▼────┐
-              │Lightning│
-              │ Network│
-              └────────┘
-```
-
-**Flow:**
-1. AI Agent requests posts via MCP
-2. ZapCampaign fetches from Nostr relays
-3. Optional: AI scoring with Google Gemini (paid)
-4. Campaign creation with in-memory storage
-5. Execution via NWC → Lightning Network zaps
-
----
-
-## 💰 **Pricing & ROI**
-
-### **Current Testing Pricing (Special Rate)**
-
-| Tool | Testing Price | Normal Price | Max Per Request |
-|------|--------------|--------------|-----------------|
-| scorePosts | **1 sat** | 10 sats | 20 posts |
-| analyzeContent | **1 sat** | 5 sats | 10 posts |
-| smartFilter | **1 sat** | 5 sats | 50 posts |
-| executeCampaign | **1 sat** | 10 sats | unlimited |
-
-### **ROI Example: Company Hashtag Campaign**
-
-**Scenario:** You're a Bitcoin company running hashtag **#BitcoinBuilder**
-
-**Manual Approach:**
-- Time: 3 hours reviewing 50 posts
-- Cost: Your time (3h × $50/hr = **$150**)
-- Risk: Wasting sats on spam/low-quality
-
-**AI-Powered Approach:**
-- Fetch 50 posts: **FREE**
-- Smart filter to high-quality (1 sat): **1 sat**
-- Score top 20 posts (1 sat): **1 sat**
-- Analyze sentiment (1 sat): **1 sat**
-- Execute campaign (1 sat): **1 sat**
-- **Total AI cost: 4 sats (~$0.0016 USD)**
-
-**Result:**
-- Time: 2 minutes
-- Cost: 4 sats + your zap budget
-- Quality: AI-verified high-quality posts only
-- **ROI: 93,750x in time savings alone!**
-
-**Zap Budget Example:**
-- Zap 10 top posts × 200 sats = **2,000 sats**
-- AI cost: **4 sats**
-- Total: **2,004 sats** for brand-safe quality campaign
-
----
 
 ## 🤝 **Contributing**
 
